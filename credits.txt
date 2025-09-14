@@ -1,0 +1,2 @@
+Program creator : Mathys Betaille (https://github.com/Mat-Beut)
+Creator of the base script used to create the custom_hatches.py script and hatches functions : Bogdan Sandu (https://github.com/cornusandu)
