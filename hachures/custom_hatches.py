@@ -31,12 +31,10 @@ def draw_hatch(ax, lines : List[Tuple[np.ndarray, np.ndarray]],
     # Place le motif parmi les limites du graphique et ajoute un peu d'espace entre chaque répétition
     for dx in np.arange(xmin, xmax, spacing) : 
         for dy in np.arange(ymin, ymax, spacing) :
-            for (p1, p2) in lines :
-                x = [p1[0] + dx, p2[0] + dx]
-                y = [p1[1] + dy, p2[1] + dy]
-                # Last argument is the order in which elements are drawn (higher = in front)
-                # Le dernier argument correspond à l'ordre dans lequel les éléments sont dessinés (plus grand = devant)
-                ax.plot(x, y, color = color, linewidth = 1, zorder = 2)
+            for line in lines :
+                p1 = line[0] + np.array([dx, dy])
+                p2 = line[1] + np.array([dx, dy])
+                ax.plot([p1[0], p2[0]], [p1[1], p2[1]], color=color, linewidth=1, zorder = 1)
 
 # Same as draw_hatch but clipped to a polygon
 # Idem que draw_hatch mais tronqué pour les limites d'un polygone
@@ -79,7 +77,7 @@ def draw_dots(ax, dots : List[np.ndarray],
                 y = p[1] + dy
                 # Marker 'o' draws dots, markersize is the size of the dot
                 # Le marker 'o' dessine des points, markersize c'est la taille du point
-                ax.plot(x, y, marker = 'o', color = color, markersize = 2, zorder = 2)
+                ax.plot(x, y, marker = 'o', color = color, markersize = 2, zorder = 1)
 
 # Same as draw_dots but clipped to a polygon
 # Idem que draw_dots mais tronqué pour les limites d'un polygone
@@ -111,7 +109,7 @@ def draw_racines(ax, lines: List[Tuple[np.ndarray, np.ndarray]],
             for (p1, p2) in lines :
                 x = [p1[0] + dx, p2[0] + dx]
                 y = [p1[1] + dy, p2[1] + dy]
-                ax.plot(x, y, color = color, linewidth = 1, zorder = 2)
+                ax.plot(x, y, color = color, linewidth = 1, zorder = 1)
 
 # Same as draw_racines but clipped to a polygon
 # Idem que draw_racines mais tronqué pour les limites d'un polygone
@@ -142,22 +140,6 @@ def draw_racines_clipped_for_poly(ax, lines, polygon_xy, xlim, ylim, spacing = 0
 # Définis les divers motifs de hachures comme des listes de points
 ## Chaque point est défini avec numpy array via ses coordonnées x et y
 
-# Large grid : for limestone
-# Quadrillage élargi : pour calcaire
-large_grid = [
-    np.array([0.0, 0.0]),
-    np.array([0.2, 0.0]),
-    np.array([0.2, 0.2]),
-    np.array([0.2, 0.0]),
-    np.array([0.4, 0.0]),
-    np.array([0.6, 0.0]),
-    np.array([0.6, -0.2]),
-    np.array([0.6, 0.0]),
-    np.array([0.8, 0.0]),
-    np.array([1.0, 0.0]),
-    np.array([1.0, 0.2]),
-    np.array([1.0, 0.0])
-]
 
 # Plus shape : for silica
 # Forme de plus : pour silice
@@ -192,6 +174,13 @@ dashed_vline = [
 vline = [
     np.array([0.1, 0.0]),
     np.array([0.1, 1.0])
+]
+
+# Horizontal line shape : for limestone (to use with Vertical line shape -> Grid shape)
+# Forme de ligne horizontale : pour calcaire (à utiliser avec Forme de ligne verticale -> Forme de grille)
+hline = [
+    np.array([0.0, 0.1]),
+    np.array([0.2, 0.1])
 ]
 
 # Wave shape : for localised iron precipitation
@@ -237,15 +226,15 @@ orga_peu_decomp = [
 # Diagonal line : for lumpy horizon (also used for particulate horizon)
 # Ligne en diagonale : pour horizon grumeleux (sers également pour horizon particulaire)
 slash = [
-    np.array([0.1, 1]),
-    np.array([1, 0.1])
+    np.array([0.0, 1.0]),
+    np.array([1.0, 0.0])
 ]
 
 # Diagonal line in mirror : for particulate horizon
 # Ligne en diagonale en miroir : pour horizon particulaire
 reversed_slash = [
-    np.array([0.1, 0.1]),
-    np.array([1, 1])
+    np.array([0.0, 0.0]),
+    np.array([1.0, 1.0])
 ]
 
 # Zigzag shape : for roots
@@ -260,6 +249,10 @@ racines = [
 # Des points : pour grès
 dots = [np.array([0.1, 0.1])]
 
+## Defining each line to create the limestone's pattern
+## Définition de chaque ligne pour réaliser le motif du calcaire
+grid1 = shape_to_lines(*vline)
+grid2 = shape_to_lines(*hline)
 
 # Converting shapes into line segments using the functions defined above
 # Convertis les formes en segments en utilisant les fonctions définies plus haut
@@ -274,6 +267,10 @@ line4 = shape_to_lines(*vibe_or)
 ## Définition de chaque ligne pour réaliser l'horizon particulaire
 slash1 = shape_to_lines(*slash)
 slash2 = shape_to_lines(*reversed_slash)
+
+## Defining roots lines as an open shape
+## Définis le motif de racines comme une forme ouverte
+#openlines = open_shape(*racines)        
 
 
 
@@ -296,5 +293,4 @@ slash2 = shape_to_lines(*reversed_slash)
     # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-
     # SOFTWARE.
