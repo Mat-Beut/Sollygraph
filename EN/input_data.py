@@ -47,7 +47,7 @@ def hatch() :
         print("6. Silica")
         print("7. Localised iron precipitation")
         print("8. Gley")
-        print("9. particulate horizon")
+        print("9. Particulate horizon")
         print("10. Lumpy horizon")
         print("11. Roots")
         motif_choice = input("Type here the number of the pattern you want to use: ").strip()
@@ -78,6 +78,13 @@ def hatch() :
         if motif_choice in ['3'] :
             motif = custom_hatches.dots
             motif_for_dict = motif
+
+        # If entered value is 4, assign to "motif" the grid-shaped pattern
+        if motif_choice in ['4'] :
+           custom_hatches.grid1
+           custom_hatches.grid2
+           # Le signe "+" n’est ici non pas utilisé pour additionner la moindre valeur, mais pour tracer les 4 variables utilisées pour le motif en forme d'onde
+           motif_for_dict = custom_hatches.grid1 + custom_hatches.grid2
         
         # If entered value is 7, assign to "motif" the different variables used to create the wave-shaped pattern 
         if motif_choice in ['7'] :
@@ -87,6 +94,8 @@ def hatch() :
            custom_hatches.line4
            # "+" sign here is not used to sum up any values but to draw the 4 used variables for the wave-shaped pattern (the first one, not the alt one)
            motif_for_dict = custom_hatches.line1 + custom_hatches.line2 + custom_hatches.line3 + custom_hatches.line4
+        
+        # If entered value is 9, assign to "motif" the different variables used to create the diagonal lines patterns
         if motif_choice in ['9'] :
             custom_hatches.slash1
             custom_hatches.slash2
@@ -167,8 +176,12 @@ def loopy_bar() :
                     if motif_choice in ['3'] :
                         # Adds and setup "motif_type" option. Will be useful later for how exactly hatches must be drawn
                         poly_dict["motif_type"] = "dots"
+                    elif motif_choice in ['4'] :
+                        poly_dict["motif_type"] = "grid"
                     elif motif_choice in ['7'] :
                         poly_dict["motif_type"] = "multilines"
+                    elif motif_choice in ['9', '10'] :
+                        poly_dict["motif_type"] = "slash"
                     elif motif_choice in ['11'] :
                         poly_dict["motif_type"] = "racines"
                     else :
@@ -217,8 +230,12 @@ def loopy_bar() :
                     if motif_choice in ['3'] :
                         # Adds and setup "motif_type" option. Will be useful later for how exactly hatches must be drawn
                         bar_dict["motif_type"] = "dots"
+                    elif motif_choice in ['4'] :
+                        bar_dict["motif_type"] = "grid"
                     elif motif_choice in ['7'] :
                         bar_dict["motif_type"] = "multilines"
+                    elif motif_choice in ['9', '10'] :
+                        bar_dict["motif_type"] = "slash"
                     elif motif_choice in ['11'] :
                         bar_dict["motif_type"] = "racines"
                     else :
@@ -269,9 +286,15 @@ def loopy_bar() :
                         # (what you must apply the pattern on, type of pattern (left side of the bar, right side of the bar), (top side of the bar, bottom side of the bar))
                         ## "spacing" is the space between each array. It controls both vertical and horizontal spacing (except for vertical spacing in "racines", since in custom_hatches/draw_racines, the "spacing" argument was removed for dy)
                         custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
+                if h["motif_type"] == "grid" :
+                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                        custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.2, color = 'black')
                 if h["motif_type"] == "multilines" :
                         ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
                         custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.2, color = 'black')
+                if h["motif_type"] == "slash" :
+                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                        custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.0, color = 'black')
                 if h["motif_type"] == "racines" :
                         ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = "white")
                         custom_hatches.draw_racines(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'white')
@@ -345,10 +368,18 @@ def loopy_bar() :
                         # (what you must apply the pattern on, type of pattern, xy positions (so x et y max and min can be used just after), (left side of the bar, right side of the bar), (top side of the bar, bottom side of the bar))
                         ## "spacing" is the space between each array. It controls both vertical and horizontal spacing (except for vertical spacing in "racines", since in custom_hatches/draw_racines, the "spacing" argument was removed for dy)
                         custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
+                if h["motif_type"] == "grid" :
+                        xmin, xmax = min(poly_xs), max(poly_xs)
+                        ymin, ymax = min(poly_ys), max(poly_ys)
+                        custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.2, color = 'black')
                 if h["motif_type"] == "multilines" :
                         xmin, xmax = min(poly_xs), max(poly_xs)
                         ymin, ymax = min(poly_ys), max(poly_ys)
                         custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.2, color = 'black')
+                if h["motif_type"] == "slash" :
+                        xmin, xmax = min(poly_xs), max(poly_xs)
+                        ymin, ymax = min(poly_ys), max(poly_ys)
+                        custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.0, color = 'black')
                 if h["motif_type"] == "racines" :
                         xmin, xmax = min(poly_xs), max(poly_xs)
                         ymin, ymax = min(poly_ys), max(poly_ys)
@@ -380,7 +411,7 @@ def loopy_bar() :
                 arrowprops=dict(arrowstyle = '-', color = 'black')
                 )
             
-    # God knows why, but all of a sudden, my layers didn't go all the down nor up, my 0 wasn't aligned correctly and my ticks were a mess, I had to change all my code
+    # I have no clue why, but all of a sudden, my layers didn't go all the down nor up, my 0 wasn't aligned correctly and my ticks were a mess, I had to change all my code
     ## That's why I added (0, bottom) for ax.set_ylim() 
     ax.set_ylim(0, bottom)
 
