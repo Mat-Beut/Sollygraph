@@ -39,7 +39,7 @@ You can find the available colors in the following link: https://matplotlib.org/
 ### Hatches option reference sheet
 You can find the available hatches down here:
 
-
+<img width="1920" height="1080" alt="hachures_EN" src="https://github.com/user-attachments/assets/83952261-535f-4cc6-80f5-1ea7dfb6bcc4" />
 
 *Please choose one of those hatches when prompted in the program. Be careful to not do any typo, otherwise the program will crash and close itself.*
 
@@ -88,7 +88,7 @@ Vous pouvez trouver les couleurs disponibles dans le lien suivant : https://matp
 ### Feuille de référence des options de hachures
 Vous pouvez trouver les hachures disponibles ci-dessous :
 
-
+<img width="1920" height="1080" alt="hachures_FR" src="https://github.com/user-attachments/assets/abbfaa08-9630-4dd8-82d3-2653a3c50305" />
 
 *Veuillez choisir l'une de ces hachures lorsque le programme vous le demande. Faites attention à ne pas faire de fautes, sinon le programme crashera et se fermera.*
 
