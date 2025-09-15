@@ -54,13 +54,11 @@ def hatch() :
 
         # Vérifie si la valeur saisie est 1, 2, 4, 5, 6, 8 ou 10
         ## Si la valeur est l'une d'entre elles, vérifie de laquelle il s'agit et assigne à "motif" le motif correspondant
-        if motif_choice in ['1', '2', '4', '5', '6', '8', '10'] :
+        if motif_choice in ['1', '2', '5', '6', '8', '10'] :
             if motif_choice == '1' :
                 motif = custom_hatches.vline
             if motif_choice == '2' :
                 motif = custom_hatches.reversed_t
-            if motif_choice == '4' :
-                motif = custom_hatches.large_grid
             if motif_choice == '5' :
                 motif = custom_hatches.orga_peu_decomp
             if motif_choice == '6' :
@@ -79,7 +77,14 @@ def hatch() :
             motif = custom_hatches.dots
             motif_for_dict = motif
         
-        # Si la valeur saisie est 7, assigne à "motif" les différentes variables utilisées pour réaliser le motif en forme d'onde
+        # Si la valeur saisie est 4, assigne à "motif_for_dict" les différentes variables utilisées pour réaliser le motif en forme de grille
+        if motif_choice in ['4'] :
+           custom_hatches.grid1
+           custom_hatches.grid2
+           # Le signe "+" n’est ici non pas utilisé pour additionner la moindre valeur, mais pour tracer les 4 variables utilisées pour le motif en forme d'onde
+           motif_for_dict = custom_hatches.grid1 + custom_hatches.grid2
+
+        # Si la valeur saisie est 7, assigne à "motif_for_dict" les différentes variables utilisées pour réaliser le motif en forme d'onde
         if motif_choice in ['7'] :
            custom_hatches.line1
            custom_hatches.line2
@@ -87,12 +92,15 @@ def hatch() :
            custom_hatches.line4
            # Le signe "+" n’est ici non pas utilisé pour additionner la moindre valeur, mais pour tracer les 4 variables utilisées pour le motif en forme d'onde
            motif_for_dict = custom_hatches.line1 + custom_hatches.line2 + custom_hatches.line3 + custom_hatches.line4
+        
+        # Si la valeur saisie est 9, assigne à "motif_for_dict" les différentes variables utilisées pour réaliser le motif des lignes en diagonale
         if motif_choice in ['9'] :
             custom_hatches.slash1
             custom_hatches.slash2
             # Idem qu'avant, 2 variables sont dessinées
             motif_for_dict = custom_hatches.slash1 + custom_hatches.slash2
 
+        # Si la valeur saisie est 11, assigne à "motif_for_dict" le motif des racines
         if motif_choice in ['11'] :
             motif = custom_hatches.racines
             # Idem que shape_to_line() sauf que le premier et dernier point ne sont pas reliés (voir custom_hatches.py)
@@ -167,8 +175,12 @@ def loopy_bar() :
                     if motif_choice in ['3'] :
                         # Ajoute et configure l'option "motif_type". Cela servira plus tard quand il sera nécessaire de préciser exactement comment les hachures doivent être dessinées
                         poly_dict["motif_type"] = "dots"
+                    elif motif_choice in ['4'] :
+                        poly_dict["motif_type"] = "grid"
                     elif motif_choice in ['7'] :
                         poly_dict["motif_type"] = "multilines"
+                    elif motif_choice in ['9', '10'] :
+                        poly_dict["motif_type"] = "slash"
                     elif motif_choice in ['11'] :
                         poly_dict["motif_type"] = "racines"
                     else :
@@ -217,8 +229,12 @@ def loopy_bar() :
                     if motif_choice in ['3'] :
                         # Ajoute et configure l'option "motif_type". Cela servira plus tard quand il sera nécessaire de préciser exactement comment les hachures doivent être dessinées
                         bar_dict["motif_type"] = "dots"
+                    elif motif_choice in ['4'] :
+                        bar_dict["motif_type"] = "grid"
                     elif motif_choice in ['7'] :
                         bar_dict["motif_type"] = "multilines"
+                    elif motif_choice in ['9', '10'] :
+                        bar_dict["motif_type"] = "slash"
                     elif motif_choice in ['11'] :
                         bar_dict["motif_type"] = "racines"
                     else :
@@ -269,9 +285,15 @@ def loopy_bar() :
                         # (ce sur quoi doit être mis le motif, type de motif (côté gauche de la barre, côté droit de la barre), (partie haute de la barre, partie basse de la barre))
                         ## "spacing" est l'espace entre chaque liste de points. Cela joue aussi bien sur l'espace vertical qu'horizontal (sauf pour l'espace vertical pour "racines", puisque dans custom_hatches/draw_racines, l'argument "spacing" a été enlevé pour dy)
                         custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
+                if h["motif_type"] == "grid" :
+                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                        custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.2, color = 'black')
                 if h["motif_type"] == "multilines" :
                         ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
                         custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.2, color = 'black')
+                if h["motif_type"] == "slash" :
+                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                        custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.0, color = 'black')
                 if h["motif_type"] == "racines" :
                         ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = "white")
                         custom_hatches.draw_racines(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'white')
@@ -345,10 +367,18 @@ def loopy_bar() :
                         # (ce sur quoi doit être mis le motif, type de motif, positions de xy (afin que x et y max et min puissent être utilisé juste après) (côté gauche de la barre, côté droit de la barre), (partie haute de la barre, partie basse de la barre))
                         ## "spacing" est l'espace entre chaque liste de points. Cela joue aussi bien sur l'espace vertical qu'horizontal (sauf pour l'espace vertical pour "racines", puisque dans custom_hatches/draw_racines, l'argument "spacing" a été enlevé pour dy)
                         custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
+                if h["motif_type"] == "grid" :
+                        xmin, xmax = min(poly_xs), max(poly_xs)
+                        ymin, ymax = min(poly_ys), max(poly_ys)
+                        custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.2, color = 'black')
                 if h["motif_type"] == "multilines" :
                         xmin, xmax = min(poly_xs), max(poly_xs)
                         ymin, ymax = min(poly_ys), max(poly_ys)
                         custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.2, color = 'black')
+                if h["motif_type"] == "slash" :
+                        xmin, xmax = min(poly_xs), max(poly_xs)
+                        ymin, ymax = min(poly_ys), max(poly_ys)
+                        custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.0, color = 'black')
                 if h["motif_type"] == "racines" :
                         xmin, xmax = min(poly_xs), max(poly_xs)
                         ymin, ymax = min(poly_ys), max(poly_ys)
