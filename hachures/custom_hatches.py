@@ -275,10 +275,6 @@ line4 = shape_to_lines(*vibe_or)
 slash1 = shape_to_lines(*slash)
 slash2 = shape_to_lines(*reversed_slash)
 
-## Defining roots lines as an open shape
-## Définis le motif de racines comme une forme ouverte
-openlines = open_shape(*racines)        
-
 
 
 # MIT License :
@@ -300,4 +296,5 @@ openlines = open_shape(*racines)
     # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+
     # SOFTWARE.
