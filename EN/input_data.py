@@ -54,13 +54,11 @@ def hatch() :
 
         # Checks if entered value is 1, 2, 4, 5, 6, 8 or 10
         ## If the value is one of them, checks which one it is and assigns to "motif" the corresponding pattern
-        if motif_choice in ['1', '2', '4', '5', '6', '8', '10'] :
+        if motif_choice in ['1', '2', '5', '6', '8', '10'] :
             if motif_choice == '1' :
                 motif = custom_hatches.vline
             if motif_choice == '2' :
                 motif = custom_hatches.reversed_t
-            if motif_choice == '4' :
-                motif = custom_hatches.large_grid
             if motif_choice == '5' :
                 motif = custom_hatches.orga_peu_decomp
             if motif_choice == '6' :
@@ -440,4 +438,5 @@ loopy_bar()
     # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+
     # SOFTWARE.
