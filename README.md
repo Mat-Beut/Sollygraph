@@ -7,7 +7,7 @@
 - [Requirements](#requirements),
 - [Instructions - How to use the program](#instructions---how-to-use-the-program),
 - [Color options reference sheet](#color-options-reference-sheet),
-- [Hatch options reference sheet](#hatch-options-reference-sheet],
+- [Hatch options reference sheet](#hatch-options-reference-sheet),
 - [Planned Features](#planned-features).
 
 [FR](#fr) :
@@ -15,7 +15,7 @@
 - [Remerciements](#remerciements),
 - [Pré-requis](#pré-requis),
 - [Instructions - Comment utiliser le programme](#instructions---comment-utiliser-le-programme),
-- [Feuille de références des options de couleurs](#feuille-de-références-des-options-de-couleurs],
+- [Feuille de références des options de couleurs](#feuille-de-références-des-options-de-couleurs),
 - [Feuille de références des options de hachures](#feuille-de-références-des-options-de-hachures),
 - [Fonctionnalitées prévues](#fonctionnalitées-prévues).
 
@@ -32,20 +32,25 @@ Even though the script is quite different now, I would have take ages to figure 
 So, thank you very much Bogdan.
 
 ### Requirements
-- Python 3,
-- A device that can run Python 3.
+> [!IMPORTANT]
+> - Python 3,
+> - A device that can run Python 3.
 
 ### Instructions - How to use the program
-<ins> ! PLEASE DO NOT SKIP THIS ! <ins />
+> [!WARNING]
+> <ins> ! PLEASE DO NOT SKIP THIS SECTION ! <ins />
 
 To download the program, click on the green "code" button, then click on "download ZIP" and save the .zip file where you want. <br />
-Once saved, please unzip it using the program you want (or the option of your OS in the right-click menu if available). <br />
+Once saved, please unzip it using the program you want (or the option of your OS in the right-click menu if available).
+
 Once unzipped (and Python 3 installed), **please** run first the "setup.py" script before anything else. This script will allows you to select your language and install the required packages to use the program.
 
 Once you've finish set up the program, you'll see a new file has appeared called "config.ini", this file contains the language settings you chose. <br />
-If at any time you want to change the language, you can either rerun "setup.py" or open "config.ini" with a text editor and manually change the language.
+> [!NOTE]
+> If at any time you want to change the language, you can either rerun "setup.py" or open "config.ini" with a text editor and manually change the language.
 
-Then, to use the program, only run "main.py". If you run something else, it will not work.
+> [!IMPORTANT]
+> Then, to use the program, only run "main.py". If you run something else, it will not work.
 
 ### Color options reference sheet
 You can find the available colors in the following link: https://matplotlib.org/stable/gallery/color/named_colors.html (xkcd colors are also available at the end of the linked webpage).
@@ -56,48 +61,56 @@ You can find the available colors in the following link: https://matplotlib.org/
 
 <img width="1744" height="1676" alt="sphx_glr_named_colors_003_2_00x" src="https://github.com/user-attachments/assets/311568f4-eb2f-43b4-8cfc-305bb535fb00" />
 
-*Please choose one of those colors when prompted in the program. Be careful to not do any typo, otherwise the program will crash and close itself.*
+> [!IMPORTANT]
+> *Please choose one of those colors when prompted in the program. Be careful to not do any typo, otherwise the program will crash and close itself.*
 
 ### Hatch options reference sheet
 You can find the available hatches down here:
 
 <img width="1920" height="1080" alt="hachures_EN" src="https://github.com/user-attachments/assets/83952261-535f-4cc6-80f5-1ea7dfb6bcc4" />
 
-*Please choose one of those hatches when prompted in the program. Be careful to not do any typo, otherwise the program will crash and close itself.*
+> [!IMPORTANT]
+> *Please choose one of those hatches when prompted in the program. Be careful to not do any typo, otherwise the program will crash and close itself.*
 
 ### Planned Features
 - Make the breach actually a wave and not a succession of "V"s,
 - Add options to add rocks in the middle of a horizon with different sizes and their respectives hatches,
 - Make a GUI.
 
+
 ## FR
 ### Présentation globale
 Sollygraph est un programme python qui permet de dessiner des profils de sol via des données entrez directement par l'utilisateur. <br />
-Vous pouvez zoomer dans le graphique et l'exporter au format .png, .pdf, .jpeg, .jpg, .pgf, .eps, .ps, .raw, .rgba, .svg, .svgz, .tif, .tiff ou .webp
+Vous pouvez zoomer dans le graphique et l'exporter au format .png, .pdf, .jpeg, .jpg, .pgf, .eps, .ps, .raw, .rgba, .svg, .svgz, .tif, .tiff ou .webp.
 
 *Veuillez noter que ce program, bien que déjà utilisable, est toujours en cours de développement.*
 
 ### Remerciements
-Avant de continuer, j'aimerai remercier [Bogdan Sandu](https://github.com/cornusandu) pour avoir créer un script pour dessiner des hachures personnalisées avec un motif hexagonal. < br/>
+Avant de continuer, j'aimerai remercier [Bogdan Sandu](https://github.com/cornusandu) pour avoir créer un script pour dessiner des hachures personnalisées avec un motif hexagonal. <br />
 Grâce à son script, j'ai pu comprendre comment créer les hachures de mon choix (dans "custom_hatches.py") et d'implémenter cela dans mon programme. <br />
 Bien que le script soit assez différent maintenant, cela m'aurait pris un temps monstre pour trouver comment faire, temps dont j'avais besoin pour étudier. <br />
 Donc, un grand merci à toi, Bogdan.
 
 ### Pré-requis
-- Python 3,
-- Un appareil qui puisse faire tourner Python 3.
+> [!IMPORTANT]
+> - Python 3,
+> - Un appareil qui puisse faire tourner Python 3.
 
 ### Instructions - Comment utiliser le programme
-<ins> ! VEUILLEZ PRENDRE LE TEMPS DE LIRE CETTE SECTION S'IL-VOUS-PLAÎT ! <ins />
+> [!WARNING]
+> <ins> ! VEUILLEZ PRENDRE LE TEMPS DE LIRE CETTE SECTION S'IL-VOUS-PLAÎT ! <ins />
 
 Pour télécharger le programme, veuillez cliquer sur le bouton vert "code", puis cliquez sur le bouton "download ZIP" puis sauvegardez le fichier .zip là où vous le souhaitez. <br />
-Une fois sauvegardé, veuillez dézipper le fichier à l'aide du programme de votre choix (ou l'option intégré dans le menu du clic-droit de votre OS si disponible). <br />
+Une fois sauvegardé, veuillez dézipper le fichier à l'aide du programme de votre choix (ou l'option intégré dans le menu du clic-droit de votre OS si disponible).
+
 Une fois dézippé (et Python 3 installé), **s'il-vous-plaît** lancez d'abord le script "setup.py" avant de faire quoique ce soit. Ce script permet de définir la langue que vous souhaitez utiliser ainsi que d'installer les paquets nécessaire au bon fonctionnement de ce programme.
 
 Une fois que vous avez fini de configuré le programme, vous verrez un nouveau fichier nommé "config.ini" apparaître, ce fichier contient les paramètres de langue que vous avez choisis. <br />
-Si à tout moment, vous souhaitez modifier la langue, vous pouvez soit lancer de nouveau le fichier "setup.py" soit ouvrir le fichier "config.ini" avec un éditeur de texte et manuellementy changer la langue.
+> [!NOTE]
+> Si à tout moment, vous souhaitez modifier la langue, vous pouvez soit lancer de nouveau le fichier "setup.py" soit ouvrir le fichier "config.ini" avec un éditeur de texte et manuellementy changer la langue.
 
-Par la suite, pour utiliser le programme, veuillez uniquement lancer "main.py". Si vous lancer un autre script, le programme ne marchera pas.
+> [!IMPORTANT]
+> Par la suite, pour utiliser le programme, veuillez uniquement lancer "main.py". Si vous lancer un autre script, le programme ne marchera pas.
 
 ### Feuille de références des options de couleurs
 Vous pouvez trouver les couleurs disponibles dans le lien suivant : https://matplotlib.org/stable/gallery/color/named_colors.html (les couleurs xkcd sont également disponible à la fin de la page internet envoyé précédemment).
@@ -108,14 +121,16 @@ Vous pouvez trouver les couleurs disponibles dans le lien suivant : https://matp
 
 <img width="1744" height="1676" alt="sphx_glr_named_colors_003_2_00x" src="https://github.com/user-attachments/assets/311568f4-eb2f-43b4-8cfc-305bb535fb00" />
 
-*Veuillez choisir l'une de ces couleurs lorsque le programme vous le demande. Faites attention à ne pas faire de fautes, sinon le prgramme crashera et se fermera.*
+> [!IMPORTANT]
+> *Veuillez choisir l'une de ces couleurs lorsque le programme vous le demande. Faites attention à ne pas faire de fautes, sinon le prgramme crashera et se fermera.*
 
 ### Feuille de références des options de hachures
 Vous pouvez trouver les hachures disponibles ci-dessous :
 
 <img width="1920" height="1080" alt="hachures_FR" src="https://github.com/user-attachments/assets/abbfaa08-9630-4dd8-82d3-2653a3c50305" />
 
-*Veuillez choisir l'une de ces hachures lorsque le programme vous le demande. Faites attention à ne pas faire de fautes, sinon le programme crashera et se fermera.*
+> [!IMPORTANT]
+> *Veuillez choisir l'une de ces hachures lorsque le programme vous le demande. Faites attention à ne pas faire de fautes, sinon le programme crashera et se fermera.*
 
 ### Fonctionnalitées prévues
 - Faire en sorte que la rupture soit réellement une vague et non une succession de "V",
