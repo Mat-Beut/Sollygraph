@@ -31,7 +31,7 @@ def hatch() :
     
     # .strip().lower() to avoid issues with case sensitivity and accidental spaces
     ## .strip() takes care of leading/trailing spaces, and .lower() makes everything lowercase
-    ask_hatch = input(" Do you want to add a pattern to your layer? (yes/no): ").strip().lower()
+    ask_hatch = input("Do you want to add a pattern to your layer? (yes/no): ").strip().lower()
     
     # Simplifies user input by accepting "y" for "yes"
     if ask_hatch in ["yes", "y"] :
@@ -200,7 +200,7 @@ def loopy_bar() :
 
 
         else :
-            dash = input("Dotted line or solid? (dotted/solid): ").strip().lower()
+            dash = input("Dotted line or solid line? (dotted/solid): ").strip().lower()
             # Simplifies user input by accepting "d" for "dotted"
             if dash in ["dotted", "d"] :
                 dash = "dotted"
@@ -220,7 +220,7 @@ def loopy_bar() :
             # Runs hatch() function to ask if hatches are needed and which ones to setup
             hatch()
 
-            if ask_hatch == "oui" :
+            if ask_hatch == "yes" :
                 if motif_choice in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'] :
                     # Adds the "motif" option in the bar's dictionary and setting it to "motif_for_dict"
                     ## Go see hatch() to know what "motif_for_dict" refers to, it changes depending on what pattern you chose
@@ -438,5 +438,4 @@ loopy_bar()
     # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-
     # SOFTWARE.
