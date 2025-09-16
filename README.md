@@ -1,13 +1,23 @@
 # Sollygraph
 
 ### Contents :
-EN :
-- Overall presentation(#overall-presentation),
-- Special thanks(#special-thanks),
-- Requirements(#requirements),
-- 
+[EN](#en):
+- [Overall presentation](#overall-presentation),
+- [Special thanks](#special-thanks),
+- [Requirements](#requirements),
+- [Instructions - How to use the program](#instructions---how-to-use-the-program),
+- [Color options reference sheet](#color-options-reference-sheet),
+- [Hatch options reference sheet](#hatch-options-reference-sheet],
+- [Planned Features](#planned-features).
 
-FR :
+[FR](#fr) :
+- [Présentation globale](#présentation-globale),
+- [Remerciements](#remerciements),
+- [Pré-requis](#pré-requis),
+- [Instructions - Comment utiliser le programme](#instructions---comment-utiliser-le-programme),
+- [Feuille de références des options de couleurs](#feuille-de-références-des-options-de-couleurs],
+- [Feuille de références des options de hachures](#feuille-de-références-des-options-de-hachures),
+- [Fonctionnalitées prévues](#fonctionnalitées-prévues).
 
 ## EN
 ### Overall presentation
@@ -37,7 +47,7 @@ If at any time you want to change the language, you can either rerun "setup.py" 
 
 Then, to use the program, only run "main.py". If you run something else, it will not work.
 
-### Color option reference sheet
+### Color options reference sheet
 You can find the available colors in the following link: https://matplotlib.org/stable/gallery/color/named_colors.html (xkcd colors are also available at the end of the linked webpage).
 
 <img width="1320" height="180" alt="sphx_glr_named_colors_001_2_00x" src="https://github.com/user-attachments/assets/f4071218-b1be-484c-be6e-0cd87688c10e" />
@@ -48,7 +58,7 @@ You can find the available colors in the following link: https://matplotlib.org/
 
 *Please choose one of those colors when prompted in the program. Be careful to not do any typo, otherwise the program will crash and close itself.*
 
-### Hatches option reference sheet
+### Hatch options reference sheet
 You can find the available hatches down here:
 
 <img width="1920" height="1080" alt="hachures_EN" src="https://github.com/user-attachments/assets/83952261-535f-4cc6-80f5-1ea7dfb6bcc4" />
@@ -100,7 +110,7 @@ Vous pouvez trouver les couleurs disponibles dans le lien suivant : https://matp
 
 *Veuillez choisir l'une de ces couleurs lorsque le programme vous le demande. Faites attention à ne pas faire de fautes, sinon le prgramme crashera et se fermera.*
 
-### Feuille de référence des options de hachures
+### Feuille de références des options de hachures
 Vous pouvez trouver les hachures disponibles ci-dessous :
 
 <img width="1920" height="1080" alt="hachures_FR" src="https://github.com/user-attachments/assets/abbfaa08-9630-4dd8-82d3-2653a3c50305" />
