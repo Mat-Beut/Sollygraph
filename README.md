@@ -1,8 +1,6 @@
 # Sollygraph
 
-<img width="1280" height="692" alt="Exemple_1" src="https://github.com/user-attachments/assets/55541b87-6e22-45b0-9aad-b67f0d0986fe" />
-<img width="1280" height="692" alt="Exemple_2" src="https://github.com/user-attachments/assets/3ceebeea-977d-4063-9eb8-bdb7baf13ccc" />
-<img width="1280" height="692" alt="Exemple_3" src="https://github.com/user-attachments/assets/2093dc77-0335-40e7-a453-0cb18e493cb0" />
+<img width="320" height="173" alt="Exemple_1" src="https://github.com/user-attachments/assets/55541b87-6e22-45b0-9aad-b67f0d0986fe" /> <img width="320" height="173" alt="Exemple_2" src="https://github.com/user-attachments/assets/3ceebeea-977d-4063-9eb8-bdb7baf13ccc" /> <img width="320" height="173" alt="Exemple_3" src="https://github.com/user-attachments/assets/2093dc77-0335-40e7-a453-0cb18e493cb0" />
 
 ### Contents/Sommaire :
 [EN](#en):
