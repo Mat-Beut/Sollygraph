@@ -72,10 +72,10 @@ You can find the available hatches down here:
 
 <img width="1920" height="1080" alt="hachures_EN" src="https://github.com/user-attachments/assets/83952261-535f-4cc6-80f5-1ea7dfb6bcc4" />
 
-If the frontier between two layers is abrupt and straight, then it's a solid line with no breaches.
-If the frontier between two layers is gradual and straight, then it's a dotted line with no breaches.
-If the frontier between two layers is abrupt but not straight, then it's a solid line with a breach.
-If the frontier between two layers is gradual but not straight, then it's a dashed line with a breach.
+If the frontier between two layers is abrupt and straight, then it's a solid line with no breaches. <br />
+If the frontier between two layers is gradual and straight, then it's a dotted line with no breaches. <br />
+If the frontier between two layers is abrupt but not straight, then it's a solid line with a breach. <br />
+If the frontier between two layers is gradual but not straight, then it's a dashed line with a breach. <br />
 
 > [!IMPORTANT]
 > *Please choose one of those hatches when prompted in the program. Be careful to not do any typo, otherwise the program will crash and close itself.*
@@ -137,10 +137,10 @@ Vous pouvez trouver les hachures disponibles ci-dessous :
 
 <img width="1920" height="1080" alt="hachures_FR" src="https://github.com/user-attachments/assets/abbfaa08-9630-4dd8-82d3-2653a3c50305" />
 
-Si la frontière entre deux couches est brutale et droite, alors on utilise une ligne continue sans ruptures.
-Si la frontière entre deux couches est graduelle et droite, alors on utilise une ligne en pointillés sans ruptures.
-Si la frontière entre deux couches est brutale mais pas droite, alors on utilise une ligne continue avec une rupture.
-Si la frontière entre deux couches est graduelle mais pas droite, alors on utilise une ligne en tirets avec une rupture.
+Si la frontière entre deux couches est brutale et droite, alors on utilise une ligne continue sans ruptures. <br />
+Si la frontière entre deux couches est graduelle et droite, alors on utilise une ligne en pointillés sans ruptures. <br />
+Si la frontière entre deux couches est brutale mais pas droite, alors on utilise une ligne continue avec une rupture. <br />
+Si la frontière entre deux couches est graduelle mais pas droite, alors on utilise une ligne en tirets avec une rupture. <br />
 
 > [!IMPORTANT]
 > *Veuillez choisir l'une de ces hachures lorsque le programme vous le demande. Faites attention à ne pas faire de fautes, sinon le programme crashera et se fermera.*
