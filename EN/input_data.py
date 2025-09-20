@@ -1,4 +1,4 @@
-# Importing readline to use arrows in input, setting it to import for Mac and Linux but not for Windows otherwise it crashes
+# importing necessaries libraries
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import hachures.custom_hatches as custom_hatches
@@ -438,4 +438,5 @@ loopy_bar()
     # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+
     # SOFTWARE.
