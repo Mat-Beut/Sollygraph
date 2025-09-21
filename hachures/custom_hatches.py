@@ -273,7 +273,7 @@ slash2 = shape_to_lines(*reversed_slash)
 # Script de Mathys B.
 
 # MIT License :
-    # Copyright (c) 2024 Mathys B.
+    # Copyright (c) 2025 Mathys B.
 
     # Permission is hereby granted, free of charge, to any person obtaining a copy
     # of this software and associated documentation files (the "Software"), to deal
