@@ -418,6 +418,7 @@ def loopy_bar() :
 # Lance la fonction principale du script 
 loopy_bar()
 
+
 # Script de Mathys B.
 ## Certaines parties sont inspirées d'un script écrit par Bogdan S.
 
@@ -440,5 +441,4 @@ loopy_bar()
     # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-
     # SOFTWARE.
