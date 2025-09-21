@@ -8,7 +8,7 @@ import hachures.custom_hatches as custom_hatches
 ## 1 inch = 2.54 cm
 inch_to_cm = 1 * 2.54
 
-# Creates a figure and an axis with fixed dimensions in cm via unit conversion
+# Creates a figure and an axis with fixed dimensions in cm using unit conversion
 ## The fixed dimensions are there to prevent the bars from deforming when layers are added
 ### They are also there to keep the same proportions on export, regardless of resolution and screen's ppi
 fig, ax = plt.subplots(figsize=(4 * inch_to_cm, 8 *inch_to_cm))
@@ -441,4 +441,5 @@ loopy_bar()
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     # SOFTWARE.
+
 
