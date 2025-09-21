@@ -1,4 +1,5 @@
-# Sollygraph
+# Sollygraph 
+<sub> Version: Alpha 1.0 </sub>
 
 <img width="320" height="173" alt="Exemple_1" src="https://github.com/user-attachments/assets/55541b87-6e22-45b0-9aad-b67f0d0986fe" /> <img width="320" height="173" alt="Exemple_2" src="https://github.com/user-attachments/assets/3ceebeea-977d-4063-9eb8-bdb7baf13ccc" /> <img width="320" height="173" alt="Exemple_3" src="https://github.com/user-attachments/assets/7369c827-e7a1-4448-869a-bd30b0d3c227" />
 
@@ -24,7 +25,7 @@
 
 ## EN
 ### Overall presentation
-Sollygraph is a python program that allows you to draw a soil horizon graph by inputting your data, you can zoom in your graph and export it in .png, .pdf, .jpeg, .jpg, .pgf, .eps, .ps, .raw, .rgba, .svg, .svgz, .tif, .tiff or .webp format.
+Sollygraph is a python program that allows you to draw a soil horizon graph by inputting your data, you can zoom in your graph, move it and export it in .png, .pdf, .jpeg, .jpg, .pgf, .eps, .ps, .raw, .rgba, .svg, .svgz, .tif, .tiff or .webp format.
 
 *Please note that this program, even though already usable, is still a W.I.P.*
 
@@ -89,7 +90,7 @@ If the frontier between two layers is gradual but not straight, then it's a dash
 ## FR
 ### Présentation globale
 Sollygraph est un programme python qui permet de dessiner des profils de sol via des données entrées directement par l'utilisateur. <br />
-Vous pouvez zoomer dans le graphique et l'exporter au format .png, .pdf, .jpeg, .jpg, .pgf, .eps, .ps, .raw, .rgba, .svg, .svgz, .tif, .tiff ou .webp.
+Vous pouvez zoomer dans le graphique, le déplacer et l'exporter au format .png, .pdf, .jpeg, .jpg, .pgf, .eps, .ps, .raw, .rgba, .svg, .svgz, .tif, .tiff ou .webp.
 
 *Veuillez noter que ce programme, bien que déjà utilisable, est toujours en cours de développement.*
 
