@@ -16,7 +16,7 @@ fig, ax = plt.subplots(figsize=(4 * inch_to_cm, 8 *inch_to_cm))
 # Setup the variable for later use
 bar = 0
 
-# Layers' length. It's purely aesthetic!
+# Layers' length. It's purely for aesthetic!
 bar_width = 4
 
 # For the legend
@@ -441,3 +441,4 @@ loopy_bar()
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     # SOFTWARE.
+
