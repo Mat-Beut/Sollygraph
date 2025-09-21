@@ -266,16 +266,13 @@ line4 = shape_to_lines(*vibe_or)
 ## Defining each line to create the particulate horizon
 ## Définition de chaque ligne pour réaliser l'horizon particulaire
 slash1 = shape_to_lines(*slash)
-slash2 = shape_to_lines(*reversed_slash)
+slash2 = shape_to_lines(*reversed_slash)        
 
-## Defining roots lines as an open shape
-## Définis le motif de racines comme une forme ouverte
-#openlines = open_shape(*racines)        
-
-
+# Script by Mathys B.
+# Script de Mathys B.
 
 # MIT License :
-    # Copyright (c) 2024 Mathys B., aka Γucky
+    # Copyright (c) 2024 Mathys B.
 
     # Permission is hereby granted, free of charge, to any person obtaining a copy
     # of this software and associated documentation files (the "Software"), to deal
@@ -293,4 +290,5 @@ slash2 = shape_to_lines(*reversed_slash)
     # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+
     # SOFTWARE.
