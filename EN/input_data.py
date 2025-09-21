@@ -81,7 +81,7 @@ def hatch() :
         if motif_choice in ['4'] :
            custom_hatches.grid1
            custom_hatches.grid2
-           # Le signe "+" n’est ici non pas utilisé pour additionner la moindre valeur, mais pour tracer les 4 variables utilisées pour le motif en forme d'onde
+           # "+" sign here isn't used to sum any values, but to draw the grid shaped pattern (vertical line + horizontal line pattern)
            motif_for_dict = custom_hatches.grid1 + custom_hatches.grid2
         
         # If entered value is 7, assign to "motif" the different variables used to create the wave-shaped pattern 
@@ -409,7 +409,7 @@ def loopy_bar() :
                 arrowprops=dict(arrowstyle = '-', color = 'black')
                 )
             
-    # I have no clue why, but all of a sudden, my layers didn't go all the down nor up, my 0 wasn't aligned correctly and my ticks were a mess, I had to change all my code
+    # I have no clue why, but all of a sudden, my layers didn't go all the way down nor up, my 0 wasn't aligned correctly and my ticks were a mess, I had to change all my code
     ## That's why I added (0, bottom) for ax.set_ylim() 
     ax.set_ylim(0, bottom)
 
@@ -417,10 +417,11 @@ def loopy_bar() :
 # Runs the main function of the script
 loopy_bar()
 
-
+# Script by Mathys B.
+## Some parts of the script are inspired by a script from Bogdan S.
 
 # MIT License :
-    # Copyright (c) 2024 Mathys B., aka Γucky
+    # Copyright (c) 2025 Mathys B.
 
     # Permission is hereby granted, free of charge, to any person obtaining a copy
     # of this software and associated documentation files (the "Software"), to deal
@@ -440,3 +441,4 @@ loopy_bar()
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
     # SOFTWARE.
+
