@@ -1,4 +1,4 @@
-# Import de la librairie readline pour utiliser les flèches en le paramétrant pour qu'il soit importé pour Mac et Linux mais pas pour Windows sinon ça crash
+# Import des librairies nécessaires
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import hachures.custom_hatches as custom_hatches
@@ -81,7 +81,7 @@ def hatch() :
         if motif_choice in ['4'] :
            custom_hatches.grid1
            custom_hatches.grid2
-           # Le signe "+" n’est ici non pas utilisé pour additionner la moindre valeur, mais pour tracer les 4 variables utilisées pour le motif en forme d'onde
+           # Le signe "+" n’est ici non pas utilisé pour additionner la moindre valeur, mais pour tracer les 2 variables utilisées pour le motif en forme de grilles (avec les motifs de la ligne verticale et de la ligne horizontale)
            motif_for_dict = custom_hatches.grid1 + custom_hatches.grid2
 
         # Si la valeur saisie est 7, assigne à "motif_for_dict" les différentes variables utilisées pour réaliser le motif en forme d'onde
@@ -418,10 +418,11 @@ def loopy_bar() :
 # Lance la fonction principale du script 
 loopy_bar()
 
-
+# Script de Mathys B.
+## Certaines parties sont inspirées d'un script écrit par Bogdan S.
 
 # MIT License :
-    # Copyright (c) 2024 Mathys B., aka Γucky
+    # Copyright (c) 2025 Mathys B.
 
     # Permission is hereby granted, free of charge, to any person obtaining a copy
     # of this software and associated documentation files (the "Software"), to deal
@@ -439,4 +440,5 @@ loopy_bar()
     # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+
     # SOFTWARE.
