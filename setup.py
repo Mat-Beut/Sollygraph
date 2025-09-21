@@ -4,7 +4,7 @@ import os
 if os.name == 'posix' :
     import readline
 
-# Importing the configuration file to choose the language via reading the __init__.py files
+# Importing the configuration file to choose the language by reading the __init__.py files
 # Import du fichier de configuration pour choisir la langue via lecture des fichiers __init__.py
 from configparser import ConfigParser
 
@@ -208,3 +208,4 @@ elif user_lang == "EN" :
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     # SOFTWARE.
+
