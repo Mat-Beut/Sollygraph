@@ -21,40 +21,51 @@ bar_width = 4
 
 # Pour la légende
 labels = []
+munsells = []
 horizons = []
 
 
 # Fonction pour demander à l'utilisateur s'il veut ajouter un motif à sa couche
 def hatch() :
     # Définis des variables globales pour un usage ultérieur dans la fonction principale du script : loopy_bar()
-    global motif, ask_hatch, motif_choice, motif_for_dict, bar_dict, poly_dict, bar_wave
+    global motif, ask_hatch, motif_available, motif_choice, motif_for_dict, bar_dict, poly_dict, bar_wave
     
     # .strip().lower() pour éviter les problèmes de casse et d'espaces accidentels
     ## .strip() gère les espaces au début/à la fin, et .lower() met tout en minuscules
-    ask_hatch = input("Voulez-vous ajouter un motif à votre couche ? (oui/non) : ").strip().lower()
+    ### Pour plus d'informations sur \033 etc., c'est du code ANSI escape, pour plus d'infos, vous pouvez consulter ce site : https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+    ask_hatch = input("""
+        Voulez-vous ajouter un motif à votre couche ? \033[1;34;49m(oui/non)\033[0;0m : """).strip().lower()
     
     # Simplifie la saisie en acceptant "o" pour "oui"
     if ask_hatch in ["oui", "o"] :
         ask_hatch = "oui"
     
     if ask_hatch == "oui" :
-        print("Motifs disponibles :")
-        print("1. Accumulation de fer")
-        print("2. Altéré")
-        print("3. Grès")
-        print("4. Calcaire")
-        print("5. Organique peu décomposé")
-        print("6. Silice")
-        print("7. Précipitation localisée de fer")
-        print("8. Gley")
-        print("9. Horizon particulaire")
-        print("10. Horizon grumeleux")
-        print("11. Racines")
+        motif_available = ("""
+            \033[4mMotifs disponibles :\033[0m
+              \033[1;33;49m
+              1. Accumulation de fer hydraté        |  2. Altéré
+              3. Grès                               |  4. Calcaire
+              5. Organique peu décomposé            |  6. Silice
+              7. Précipitation localisée de fer     |  8. Gley
+              9. Horizon particulaire               |  10. Horizon grumeleux
+              11. Racines                           |  12. Carbonate de chaux
+              13. Argile 2/1 (illites, vermiculites |  14. Argile 2/1 (kaolinite)
+                  montmorillonite                   |
+                  avec oxyde de fer absorbé)        |  
+              15. Alumine libre                     |  16. Concrétion ferro-magnétique
+              17. Accumulation de fer déshydraté    | \033[0;0m
+             """)
+        # Définit une couleur pour "|", puis remplace les "|" dans le texte de "motif_available" par le même "|" mais coloré 
+        default_color = "\033[0;1m|\033[1;33;49m"
+        if '|' in motif_available :
+            motif_available = motif_available.replace('|', default_color)
+        print(motif_available)
         motif_choice = input("Entrez le numéro du motif que vous souhaitez utiliser : ").strip()
 
-        # Vérifie si la valeur saisie est 1, 2, 4, 5, 6, 8 ou 10
+        # Vérifie si la valeur saisie est 1, 2, 5, 6, 8, 10, 13, 14 ou 17
         ## Si la valeur est l'une d'entre elles, vérifie de laquelle il s'agit et assigne à "motif" le motif correspondant
-        if motif_choice in ['1', '2', '5', '6', '8', '10'] :
+        if motif_choice in ['1', '2', '5', '6', '8', '10', '13', '14', '17'] :
             if motif_choice == '1' :
                 motif = custom_hatches.vline
             if motif_choice == '2' :
@@ -67,6 +78,12 @@ def hatch() :
                 motif = custom_hatches.dashed_vline
             if motif_choice == '10' :
                 motif = custom_hatches.slash
+            if motif_choice == '13' :
+                motif = custom_hatches.hline_full
+            if motif_choice == '14' :
+                motif = custom_hatches.hline
+            if motif_choice == '17' :
+                 motif = custom_hatches.vline
             # Convertis le motif en lignes pour l'utiliser avec la fonction draw_hatch du fichier custom_hatches.py
             ## S'appelle ainsi, car cette variable peut être ajoutée dans les dictionnaires bar_dict ou poly_dict
             motif_for_dict = custom_hatches.shape_to_lines(*motif)
@@ -106,16 +123,39 @@ def hatch() :
             # Idem que shape_to_line() sauf que le premier et dernier point ne sont pas reliés (voir custom_hatches.py)
             motif_for_dict = custom_hatches.open_shape(*motif)
 
-        # Petit code de secours au cas où quelqu'un entrerez un numéro non proposé
-        if motif_choice not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'] :
-            print("Choix invalide, aucun motif ne sera appliqué.")
+        # Si la valeur saisie est 12, assigne à "motif_for_dict" le motif des deux hlines
+        if motif_choice in ['12'] :
+            custom_hatches.hlineA
+            custom_hatches.hlineB
+            # Le signe "+" n’est ici non pas utilisé pour additionner la moindre valeur, mais pour tracer les 2 variables utilisées pour le motif 12
+            motif_for_dict = custom_hatches.hlineA + custom_hatches.hlineB
+
+        # Si la valeur saisie est 15, assigne à "motif" le motif de cercles
+        ## Comme pour les points, on ne veut pas de segments, on garde juste les centres
+        if motif_choice in ['15'] :
+            motif = custom_hatches.circles
+            motif_for_dict = motif
+
+        # Si la valeur saisie est 16, assigne à "motif" le motif de cercles mais patché pour acceuillir des lignes vertical en plus
+        ## Pour fusionner les deux types de motifs, il faut les définir séparément dans un dictionnaire et définir un type par figure (pour que le script sache comment les dessiner plus tard)
+        if motif_choice in ['16'] :
+            motif_for_dict = [
+                {"data": custom_hatches.line1_16 + custom_hatches.line2_16 + custom_hatches.line3_16 + custom_hatches.line4_16, "type": "multilines"},
+                {"data": custom_hatches.circles, "type": "circles"}
+            ]
+
+        # Petit code de secours au cas où quelqu'un entrerait un numéro non proposé
+        if motif_choice not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'] :
+            print("""\033[31;49;3mChoix invalide, aucun motif ne sera appliqué.
+                  \033[0;0m""")
             ask_hatch = "non"
     else :
         ask_hatch = "non"
 
 def loopy_bar() :
-    global bar_width, bar, x_wave, y_wave, labels, motif, ask_hatch, motif_choice, motif_for_dict, bar_dict, poly_dict, bar_wave
-    loopy = int(input("Entrez le nombre de couches que vous souhaitez créer : "))
+    global bar_width, bar, x_wave, y_wave, labels, munsells, motif, motif_available, ask_hatch, motif_choice, motif_for_dict, bar_dict, poly_dict, bar_wave
+    loopy = int(input("""
+        Entrez le nombre de couches que vous souhaitez créer : """))
     bottom = 0
 
     # Permets de répéter la création de barres en fonction du nombre de couches voulues
@@ -123,19 +163,25 @@ def loopy_bar() :
         x = [0]
         # Le "f" permet d'utiliser {i + 1} au milieu du texte affiché dans l'input
         ## {i + 1} montre dans quelle boucle on est. Si c'est la première boucle, "couche 1" sera affiché, si c'est la 3e boucle, "couche 3" sera affiché.
-        y = int(input(f"Entrez la hauteur de votre couche {i + 1} en cm : "))
+        y = int(input(f"""
+        Entrez la hauteur de votre couche {i + 1} en cm : """))
         
-        bar_wave = input("Votre couche comporte-t-elle une rupture ? (oui/non) : ").strip().lower()
+        bar_wave = input("""
+        Votre couche comporte-t-elle une rupture ? \033[1;34;49m(oui/non)\033[0;0m : """).strip().lower()
         if bar_wave in ["oui", "o"] :
             bar_wave = "oui"
 
-    
-        label = input("Entrez le nom de votre couche : ")
-        color = input("Entrez la couleur de votre choix parmi celles disponibles : ")
+        # Label correspond au nom de la couche
+        ## munsell_color est une sorte de deuxième label avec un nom différent pour éviter tout bug
+        label = input("""
+        Entrez le nom de votre couche : """)
+        munsell_color = input("""
+        Entrez le code couleur Munsell de votre choix : """)
 
 
         if bar_wave == "oui" :
-            dash_wave = input("Tirets ou ligne continue ? (tirets/ligne) : ").strip().lower()
+            dash_wave = input("""
+        Tirets ou ligne continue ? \033[1;34;49m(tirets/ligne)\033[0;0m : """).strip().lower()
             # Simplifie la saisie en acceptant "t" pour "tirets"
             if dash_wave in ["tirets", "t"] :
                 dash_wave = "tirets"
@@ -158,17 +204,18 @@ def loopy_bar() :
             ## Obligatoire pour pas avoir la barre du dessous qui cache le polygone
             poly_dict = {
                 "type" : "poly",
+                # "xy" correspond à une liste de tuples de coordonnées x et y, zip permet de les associer ensemble
+                ## List est utilisé pour que les coordonnées soient regroupées en une liste et soit facilement utilisables pour tracer le polygone plus tard
                 "xy" : list(zip(poly_x, poly_y)),
-                "color" : color,
                 "label" : label,
+                "munsell" : munsell_color,
                 "linestyle" : 'dashed' if dash_wave == "tirets" else 'solid'
             }
-
             # Lance la fonction hatch() afin de demander si des hachures sont nécessaires, et lesquels utiliser
             hatch()
 
             if ask_hatch == "oui" :
-                if motif_choice in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'] :
+                if motif_choice in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'] :
                     # Ajoute l'option "motif" dans le dictionnaire du polygone et le fait correspondre à "motif_for_dict"
                     ## Allez voir hatch() pour savoir à quoi "motif_for_dict" correspond, ça change en fonction du motif choisi
                     poly_dict["motif"] = motif_for_dict
@@ -183,8 +230,18 @@ def loopy_bar() :
                         poly_dict["motif_type"] = "slash"
                     elif motif_choice in ['11'] :
                         poly_dict["motif_type"] = "racines"
+                    elif motif_choice in ['12'] :
+                        poly_dict["motif_type"] = "double_hline"
+                    elif motif_choice in ['15'] :
+                        poly_dict["motif_type"] = "circles"
+                    elif motif_choice in ['16'] :
+                        # Puisque le motif 16 correspond à deux types de motifs différents prédéfinis précédemment
+                        ## On assigne une valeur none ici afin que motif_type soit enregistré dans le dictionnaire poly_dict
+                        ### Tout en récupérant les deux types de motifs dans "motif_for_dict" 
+                        poly_dict["motif_type"] = None
                     else :
-                        # Idem que le précédent commentaire sauf que c'est pour la majorité des motifs et non pour des exceptions comme juste au-dessus
+                        # Ajoute et configure l'option "motif_type", sauf que c'est pour la majorité des motifs et non pour des exceptions comme juste au-dessus
+                        poly_dict["motif"] = motif_for_dict
                         poly_dict["motif_type"] = "lines"
             else :
                 # Configure ces options en tant que "None" afin qu'elles soient ignorées sans faire buguer le script
@@ -201,7 +258,8 @@ def loopy_bar() :
 
 
         else :
-            dash = input("Pointillés ou ligne continue ? (pointillés/ligne) : ").strip().lower()
+            dash = input("""
+        Pointillés ou ligne continue ? \033[1;34;49m(pointillés/ligne)\033[0;0m : """).strip().lower()
             # Simplifie la saisie en acceptant "p" pour "pointillets"
             if dash in ["pointillés", "p"] :
                 dash = "pointillés"
@@ -214,7 +272,7 @@ def loopy_bar() :
                 "y" : y,
                 "bottom" : bottom,
                 "label" : label,
-                "color" : color,
+                "munsell" : munsell_color,
                 "linestyle" : 'dotted' if dash == "pointillés" else 'solid'
             }
 
@@ -222,7 +280,7 @@ def loopy_bar() :
             hatch()
 
             if ask_hatch == "oui" :
-                if motif_choice in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'] :
+                if motif_choice in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'] :
                     # Ajoute l'option "motif" dans le dictionnaire de la barre et le fait correspondre à "motif_for_dict"
                     ## Allez voir hatch() pour savoir à quoi "motif_for_dict" correspond, ça change en fonction du motif choisi
                     bar_dict["motif"] = motif_for_dict
@@ -237,8 +295,18 @@ def loopy_bar() :
                         bar_dict["motif_type"] = "slash"
                     elif motif_choice in ['11'] :
                         bar_dict["motif_type"] = "racines"
+                    elif motif_choice in ['12'] :
+                        bar_dict["motif_type"] = "double_hline"
+                    elif motif_choice in ['15'] :
+                        bar_dict["motif_type"] = "circles"
+                    elif motif_choice in ['16'] :
+                        # Puisque le motif 16 correspond à deux types de motifs différents prédéfinis précédemment
+                        ## On assigne une valeur none ici afin que motif_type soit enregistré dans le dictionnaire bar_dict
+                        ### Tout en récupérant les deux types de motifs dans "motif_for_dict"
+                        bar_dict["motif_type"] = None
                     else :
-                        # Idem que le précédent commentaire sauf que c'est pour la majorité des motifs et non pour des exceptions comme juste au-dessus
+                        # Ajoute et configure l'option "motif_type", sauf que c'est pour la majorité des motifs et non pour des exceptions comme juste au-dessus
+                        bar_dict["motif"] = motif_for_dict
                         bar_dict["motif_type"] = "lines"
             else :
                 # Configure ces options en tant que "None" afin qu'elles soient ignorées sans faire buguer le script
@@ -267,7 +335,7 @@ def loopy_bar() :
                 ## "label" correspond à la légende
                 label = h["label"],
                 # "facecolor" est la couleur de la barre
-                facecolor = h["color"],
+                facecolor = 'white',
                 # "edgecolor" est la couleur du coutour de la barre
                 edgecolor = 'black',
                 # "linestyle" est le type de contour ("pointillés", "ligne")
@@ -280,30 +348,58 @@ def loopy_bar() :
             )
             # Récupère la valeur de "motif", si ce n'est pas None, rempli la barre avec la bonne hachure et la dessine
             if h.get("motif") is not None :
-                if h["motif_type"] == "lines" :
+                # Vérifie si c'est une liste de dicts (multi-motif) ou juste des données (single-motif)
+                ## Plus précisément, isinstance vérifie si h["motif"] est un dictionnaire ou pas
+                ### Si oui, alors on enchaîne sur la boucle for m in h["motif"]
+                if h["motif"] and isinstance(h["motif"][0], dict) :
+                    # Plusieurs motifs : chaque élément est un dictionnaire avec "data" et "type"
+                    for m in h["motif"] :
+                        # En fonction du type de motif, utilise la fonction de dessin appropriée
+                        if m["type"] == "multilines" :
+                            custom_hatches.draw_hatch(ax, m["data"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
+                        elif m["type"] == "circles" :
+                            custom_hatches.draw_circles_patches(ax, m["data"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black', radius = 0.08)
+                else :
+                    # Un seul motif : h["motif"] contient directement les données du motif
+                    if h["motif_type"] == "lines" :
                         ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
-                        # (ce sur quoi doit être mis le motif, type de motif (côté gauche de la barre, côté droit de la barre), (partie haute de la barre, partie basse de la barre))
-                        ## "spacing" est l'espace entre chaque liste de points. Cela joue aussi bien sur l'espace vertical qu'horizontal (sauf pour l'espace vertical pour "racines", puisque dans custom_hatches/draw_racines, l'argument "spacing" a été enlevé pour dy)
-                        custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
-                if h["motif_type"] == "grid" :
-                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
-                        custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.2, color = 'black')
-                if h["motif_type"] == "multilines" :
-                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
-                        custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.2, color = 'black')
-                if h["motif_type"] == "slash" :
-                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
-                        custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.0, color = 'black')
-                if h["motif_type"] == "racines" :
-                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = "white")
-                        custom_hatches.draw_racines(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'white')
-                if h["motif_type"] == "dots" :
-                        ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
-                        custom_hatches.draw_dots(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
+                        # Si le motif choisi est le numéro 17, alors on ajoute linedwidth = 2 pour que les lignes soient plus épaisses
+                        if motif_choice in ['17'] :
+                            # (ce sur quoi doit être mis le motif, type de motif (côté gauche de la barre, côté droit de la barre), (partie haute de la barre, partie basse de la barre))
+                            ## "spacing" est l'espace entre chaque liste de points. Cela joue aussi bien sur l'espace vertical qu'horizontal (sauf pour l'espace vertical pour "racines", puisque dans custom_hatches/draw_racines, l'argument "spacing" a été enlevé pour dy)
+                            custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black', linewidth = 2)
+                        else :
+                            custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
+
+                    if h["motif_type"] == "grid" :
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                            custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.2, color = 'black')
+                    if h["motif_type"] == "multilines" :
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                            custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.2, color = 'black')
+                    if h["motif_type"] == "slash" :
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                            custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.0, color = 'black')
+                    if h["motif_type"] == "racines" :
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = "white")
+                            custom_hatches.draw_racines(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'white')
+                    if h["motif_type"] == "dots" :
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                            custom_hatches.draw_dots(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
+                    if h["motif_type"] == "double_hline" :
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                            custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
+                    if h["motif_type"] == "circles" :
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
+                            custom_hatches.draw_circles_patches(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black', radius = 0.08)
+                            
+                            ax.set_aspect('equal')
 
 
-            # Stocke les données de "labels" pour être utilisé plus tard avec "annotate" pour la légende
+            # Stocke le nom pour l'annotation et le code Munsell pour la légende
             labels.append(h["label"])
+            # h.get et pas h["munsell"] pour éviter les problèmes si jamais "munsell" n'est pas défini dans le dictionnaire (ça évite un KeyError)
+            munsells.append(h.get("munsell"))
         
         
             # Calcul le milieu de la barre (ajusté pour la largeur des barres)
@@ -315,6 +411,7 @@ def loopy_bar() :
                 h["label"],
                 xy = (bar_x, bar_y),
                 # Positionne le nom de la barre à droite de la ligne 
+                ## VA : Vertical Alignment, HA : Horizontal Alignment
                 xytext = (bar_x + 1, bar_y),
                 va = 'center',
                 ha = 'left',
@@ -323,6 +420,19 @@ def loopy_bar() :
                 arrowprops = dict(arrowstyle = '-', color = 'black')
             )
 
+            # Annote la barre avec une ligne et le code Munsell en dessous du label
+            ax.annotate(
+                h["munsell"] + "*",
+                xy = (bar_x, bar_y + 0.5),
+                # Positionne le code Munsell à droite de la ligne 
+                ## VA : Vertical Alignment, HA : Horizontal Alignment
+                xytext = (bar_x + 1, bar_y + 0.5),
+                va = 'center',
+                ha = 'left',
+                # Pour dessiner une ligne, il faut en fait dessiner une flèche
+                ## Le type de la flèche est une ligne droite
+                arrowprops = dict(arrowstyle = '-', color = 'black')
+            )
 
     # "reversed" permet aux couches d'être dessinées de la dernière à la première. C'est également pour cela qu'il était nécessaire de d'abord stocker les données
     ## Cela permet d'éviter divers soucis de couches les unes devant les autres
@@ -338,7 +448,7 @@ def loopy_bar() :
                 ## "label" correspond à la légende
                 label = h["label"],
                 # "facecolor" est la couleur du polygone
-                facecolor = h["color"],
+                facecolor = 'white',
                 # "edgecolor" est la couleur du coutour du polygone
                 edgecolor = 'black',
                 # "linestyle" est le type de contour ("tirets", "ligne")
@@ -352,57 +462,71 @@ def loopy_bar() :
             # Dessine le polygone
             ax.add_patch(poly)
 
-            # Stocke les données de "labels" pour être utilisé plus tard avec "annotate" pour la légende
+            # Stocke le nom pour l'annotation et le code Munsell pour la légende
             labels.append(h["label"])
+            # h.get et pas h ["munsell"] pour éviter les problèmes si jamais "munsell" n'est pas défini dans le dictionnaire (ça évite un KeyError)
+            munsells.append(h.get("munsell"))
             
             
             # Détermine la valeur de x la plus à droite et la moyenne de y pour le placement du label plus tard
             poly_xs, poly_ys = zip(*h["xy"])
 
+            # Calcule les limites x et y une seule fois pour tous les motifs
+            xmin, xmax = min(poly_xs), max(poly_xs)
+            ymin, ymax = min(poly_ys), max(poly_ys)
+
             # Récupère la valeur de "motif", si ce n'est pas None, rempli le polygone avec la bonne hachure et la dessine
             if h.get("motif") is not None :
-                if h["motif_type"] == "lines" :
-                        xmin, xmax = min(poly_xs), max(poly_xs)
-                        ymin, ymax = min(poly_ys), max(poly_ys)
-                        # (ce sur quoi doit être mis le motif, type de motif, positions de xy (afin que x et y max et min puissent être utilisé juste après) (côté gauche de la barre, côté droit de la barre), (partie haute de la barre, partie basse de la barre))
-                        ## "spacing" est l'espace entre chaque liste de points. Cela joue aussi bien sur l'espace vertical qu'horizontal (sauf pour l'espace vertical pour "racines", puisque dans custom_hatches/draw_racines, l'argument "spacing" a été enlevé pour dy)
-                        custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
-                if h["motif_type"] == "grid" :
-                        xmin, xmax = min(poly_xs), max(poly_xs)
-                        ymin, ymax = min(poly_ys), max(poly_ys)
-                        custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.2, color = 'black')
-                if h["motif_type"] == "multilines" :
-                        xmin, xmax = min(poly_xs), max(poly_xs)
-                        ymin, ymax = min(poly_ys), max(poly_ys)
-                        custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.2, color = 'black')
-                if h["motif_type"] == "slash" :
-                        xmin, xmax = min(poly_xs), max(poly_xs)
-                        ymin, ymax = min(poly_ys), max(poly_ys)
-                        custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.0, color = 'black')
-                if h["motif_type"] == "racines" :
-                        xmin, xmax = min(poly_xs), max(poly_xs)
-                        ymin, ymax = min(poly_ys), max(poly_ys)
-                        custom_hatches.draw_racines_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'white')
-                if h["motif_type"] == "dots" :
-                        xmin, xmax = min(poly_xs), max(poly_xs)
-                        ymin, ymax = min(poly_ys), max(poly_ys)
-                        custom_hatches.draw_dots_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
+                # Vérifie si c'est une liste de dicts (multi-motif) ou juste des données (single-motif)
+                ## Plus précisément, isinstance vérifie si h["motif"] est un dictionnaire ou pas
+                ### Si oui, alors on enchaîne sur la boucle for m in h["motif"]
+                if h["motif"] and isinstance(h["motif"][0], dict) :
+                    # Plusieurs motifs : chaque élément est un dictionnaire avec "data" et "type"
+                    for m in h["motif"] :
+                        # En fonction du type de motif, utilise la fonction de dessin appropriée
+                        if m["type"] == "multilines" :
+                            custom_hatches.draw_hatch_clipped_for_poly(ax, m["data"], h["xy"], (xmin, xmax), (ymin, ymax), spacing=0.5, color='black')
+                        elif m["type"] == "circles" :
+                            custom_hatches.draw_circles_patches_clipped_for_poly(ax, m["data"], h["xy"], (xmin, xmax), (ymin, ymax), spacing=0.5, color='black', radius= 0.05)
+                else :
+                    # Un seul motif : h["motif"] contient directement les données du motif
+                    if h.get("motif_type") == "lines" :
+                            # Si le motif choisi est le numéro 17, alors on ajoute linedwidth = 2 pour que les lignes soient plus épaisses
+                            if motif_choice in ['17'] :
+                                # (ce sur quoi doit être mis le motif, type de motif, positions de xy (afin que x et y max et min puissent être utilisé juste après) (côté gauche du poly, côté droit du poly), (partie haute du poly, partie basse du poly))
+                                ## "spacing" est l'espace entre chaque liste de points. Cela joue aussi bien sur l'espace vertical qu'horizontal (sauf pour l'espace vertical pour "racines", puisque dans custom_hatches/draw_racines, l'argument "spacing" a été enlevé pour dy)
+                                custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, linewidth = 2, color = 'black')
+                            else :
+                                custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
+                    if h.get("motif_type") == "grid" :
+                            custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.2, color = 'black')
+                    if h.get("motif_type") == "multilines" :
+                            custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.2, color = 'black')
+                    if h.get("motif_type") == "slash" :
+                            custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.0, color = 'black')
+                    if h.get("motif_type") == "racines" :
+                            custom_hatches.draw_racines_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'white')
+                    if h.get("motif_type") == "dots" :
+                            custom_hatches.draw_dots_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
+                    if h.get("motif_type") == "double_hline" :
+                            custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
+                    if h.get("motif_type") == "circles" :
+                            custom_hatches.draw_circles_patches_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black', radius = 0.08)
 
-
-            # Détermine les positions de x et y pour le "label" et son positionnement dans annotate()
+            # Détermine les positions de x et y pour le "label" et "munsell" et leur positionnement dans annotate()
             label_x = max(poly_xs) + 0.5
             label_y = sum(poly_ys) / len(poly_ys)
+            munsell_x = max(poly_xs) + 0.5
+            munsell_y = (sum(poly_ys) / len(poly_ys)) + 0.5
             
-
-            # Utilise le point le plus à droite (- 0,5) pour le début de la flèche
-            arrow_start = (max(poly_xs) - 0.5, label_y)
             
             # Annote le polygone avec une ligne et le nom du polygone (qui correspond au label)
             ax.annotate(
                 h["label"],
-                xy = arrow_start,
+                xy = (max(poly_xs) - 0.5, label_y),
                 # Positionne le nom de la barre à droite de la ligne
                 xytext = (label_x, label_y),
+                ## VA : Vertical Alignment, HA : Horizontal Alignment
                 va = 'center',
                 ha = 'left',
                 # Pour dessiner une ligne, il faut en fait dessiner une flèche
@@ -410,6 +534,20 @@ def loopy_bar() :
                 arrowprops=dict(arrowstyle = '-', color = 'black')
                 )
             
+            # Annote le polygone avec une ligne et le code Munsell en dessous du label
+            ax.annotate(
+                h["munsell"] + "*",
+                xy = (max(poly_xs) - 0.5, munsell_y),
+                # Positionne le code Munsell à droite de la ligne
+                xytext = (munsell_x, munsell_y),
+                ## VA : Vertical Alignment, HA : Horizontal Alignment
+                va = 'center',
+                ha = 'left',
+                # Pour dessiner une ligne, il faut en fait dessiner une flèche
+                ## Le type de la flèche est une ligne droite
+                arrowprops=dict(arrowstyle = '-', color = 'black')
+                )
+
     # Allez savoir pourquoi, mais d'un coup, mes couches n’allaient pas jusqu'en bas ni jusqu'en haut, j'avais le 0 de décalé en hauteur et le bazar dans mes ticks, j'ai dû tout modifier
     ## D'où l'ajout de (0, bottom) pour ax.set_ylim()
     ax.set_ylim(0, bottom)
@@ -423,7 +561,7 @@ loopy_bar()
 ## Certaines parties sont inspirées d'un script écrit par Bogdan S.
 
 # MIT License :
-    # Copyright (c) 2025 Mathys B.
+    # Copyright (c) 2025-2026 Mathys B.
 
     # Permission is hereby granted, free of charge, to any person obtaining a copy
     # of this software and associated documentation files (the "Software"), to deal
