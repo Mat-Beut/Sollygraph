@@ -54,7 +54,7 @@ def hatch() :
                   montmorillonite                   |
                   with absorbed iron oxide)         |  
               15. Free alumina                      |  16. Ferromagnetic concretion
-              17. Accumulation of dehydated iron    | \033[0;0m
+              17. Accumulation of dehydrated iron    | \033[0;0m
              """) 
         # Defines a color for "|", then replaces the "|" in the "motif_available" text with the same "|" but colored
         default_color = "\033[0;1m|\033[1;33;49m"
@@ -335,7 +335,7 @@ def loopy_bar() :
                 ## "label" is for the legend
                 label = h["label"],
                 # "facecolor" is the color of the bar
-                facecolor = h["color"],
+                facecolor = 'white',
                 # "edgecolor" is the color of the bar's outline
                 edgecolor = 'black',
                 # "linestyle" is the style of the outline ("dotted" or "line")
@@ -381,8 +381,8 @@ def loopy_bar() :
                             ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
                             custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.0, color = 'black')
                     if h["motif_type"] == "racines" :
-                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = "white")
-                            custom_hatches.draw_racines(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'white')
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = "black")
+                            custom_hatches.draw_racines(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
                     if h["motif_type"] == "dots" :
                             ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
                             custom_hatches.draw_dots(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
@@ -448,7 +448,7 @@ def loopy_bar() :
                 ## "label" is for the legend
                 label = h["label"],
                 # "facecolor" is the color of the polygon
-                facecolor = h["color"],
+                facecolor = 'white',
                 # "edgecolor" is the color of the polygon's outline
                 edgecolor = 'black',
                 # "linestyle" is the style of the outline ("dashed" or "line")
@@ -505,7 +505,7 @@ def loopy_bar() :
                     if h.get("motif_type") == "slash" :
                             custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.0, color = 'black')
                     if h.get("motif_type") == "racines" :
-                            custom_hatches.draw_racines_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'white')
+                            custom_hatches.draw_racines_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
                     if h.get("motif_type") == "dots" :
                             custom_hatches.draw_dots_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
                     if h.get("motif_type") == "double_hline" :
