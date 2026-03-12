@@ -12,6 +12,7 @@ from configparser import ConfigParser
 # Import de librairies Mathplotlib
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator, MultipleLocator
+from matplotlib.lines import Line2D
 
 
 # Reading the config.ini file and importing its settings
@@ -62,10 +63,17 @@ ax.invert_yaxis()
 if lang == "FR" :
     plt.title(input("Entrez le titre du graphique : "))
     plt.ylabel("Échelle (en cm)", style = 'italic', loc = 'center')
+    # Handles Line2D and empty brackets allows for invisible color block,
+    ## combined with frameon=False which removes the frame of the legend allows for a simple text in the legend
+    ### You can also drag around the legend's label to allows easier reading of the graph
+    # Handles Line2D et les crochets vides permettent d'avoir un bloc de couleur invisible,
+    ## combiné avec frameon=False qui supprime le cadre de la légende permet d'avoir un simple texte dans la légende
+    ### Vous pouvez aussi faire glisser le label de la légende pour faciliter la lecture du graphique
+    ax.legend(handles=[Line2D([], [], color="none")], labels=["* : Code Munsell"], loc='upper right', draggable=True, frameon=False)
 elif lang == "EN" :
     plt.title(input("Type here your graph's title: "))
     plt.ylabel("Scale (in cm)", style = 'italic', loc = 'center')
-
+    ax.legend(handles=[Line2D([], [], color="none")], labels=["*: Munsell code"], loc='upper right', draggable=True, frameon=False)
 # Show the graph
 # Affiche le graphique
 plt.show()
@@ -75,7 +83,7 @@ plt.show()
 # Script de Mathys B.
 
 # MIT License :
-    # Copyright (c) 2025 Mathys B.
+    # Copyright (c) 2025-2026 Mathys B.
 
     # Permission is hereby granted, free of charge, to any person obtaining a copy
     # of this software and associated documentation files (the "Software"), to deal
