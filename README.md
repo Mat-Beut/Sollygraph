@@ -35,7 +35,7 @@ Thanks to his script, I was able to understand how to create the hatches I wante
 Even though the script is quite different now, I would have taken ages to figure this out, and I needed this time for university. <br />
 So, thank you very much, Bogdan.
 
-I want to thank as well Mrs. Balland for the further information she provided that helped for the new version of the program. <br />
+I want to thank as well Mrs. Balland Clarisse for the further information she provided that helped for the new version of the program. <br />
 Without her, the program would still be in a useless proof of concept form. <br />
 So, thank you very much.
 
@@ -103,7 +103,7 @@ Grâce à son script, j'ai pu comprendre comment créer les hachures de mon choi
 Bien que le script soit assez différent maintenant, cela m'aurait pris un temps monstre pour trouver comment faire, temps dont j'avais besoin pour étudier. <br />
 Donc, un grand merci à toi, Bogdan.
 
-J'aimerai également remercier Mme. Balland pour les informations supplémentaires qu'elle a fourni et qui ont aidé à la réalisation de la nouvelle version du programme. <br />
+J'aimerai également remercier Mme. Balland Clarisse pour les informations supplémentaires qu'elle a fourni et qui ont aidé à la réalisation de la nouvelle version du programme. <br />
 Sans elle, ce programme serait probablement toujours une sorte de concept inutilisable. <br />
 Un grand merci à vous.
 
