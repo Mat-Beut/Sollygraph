@@ -381,8 +381,8 @@ def loopy_bar() :
                             ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
                             custom_hatches.draw_hatch(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 1.0, color = 'black')
                     if h["motif_type"] == "racines" :
-                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = "white")
-                            custom_hatches.draw_racines(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'white')
+                            ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = "black")
+                            custom_hatches.draw_racines(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
                     if h["motif_type"] == "dots" :
                             ax.fill_between(h["x"], h["bottom"], h["bottom"] + h["y"], color = 'black')
                             custom_hatches.draw_dots(ax, h["motif"], (h["x"][0], h["x"][0] + bar_width), (h["bottom"], h["bottom"] + h["y"]), spacing = 0.5, color = 'black')
@@ -505,7 +505,7 @@ def loopy_bar() :
                     if h.get("motif_type") == "slash" :
                             custom_hatches.draw_hatch_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 1.0, color = 'black')
                     if h.get("motif_type") == "racines" :
-                            custom_hatches.draw_racines_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'white')
+                            custom_hatches.draw_racines_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
                     if h.get("motif_type") == "dots" :
                             custom_hatches.draw_dots_clipped_for_poly(ax, h["motif"], h["xy"], (xmin, xmax), (ymin, ymax), spacing = 0.5, color = 'black')
                     if h.get("motif_type") == "double_hline" :
