@@ -101,7 +101,10 @@ if user_lang == "FR" :
             Bonjour. Ce script vérifie que tous les paquets requis sont installés.
             Les paquets requis sont les suivants :
             - matplotlib,
-            - mpl-visual-context.
+            - mpl-visual-context,
+            - numpy,
+            - typing,
+            - shapely.
             
             Vous pouvez modifier la langue en modifiant le fichier config.ini via un éditeur de texte ou en exécutant de nouveau ce script.
             Si vous souhaitez installer ces paquets manuellement, vous êtes libre de fermer ce script.
@@ -162,7 +165,10 @@ elif user_lang == "EN" :
             Hello. This script will check if you have the required packages installed.
             The following packages are required:
             - matplotlib,
-            - mpl-visual-context.
+            - mpl-visual-context,
+            - numpy,
+            - typing,
+            - shapely.
           
             At any time you can change the language by editing the config.ini file using a text editor or by rerunning this script.
             If you desire to install those packages manually, you're free to close this script.
